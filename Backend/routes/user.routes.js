@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
 import { body } from "express-validator";
-import userController from "../controllers/user.controller";
+import userController from "../controllers/user.controller.js";
 
 router.post("/register",
   [
