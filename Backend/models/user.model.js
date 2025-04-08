@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken"; 
 
 const userSchema = new mongoose.Schema({
     fullname:{
@@ -18,7 +18,6 @@ const userSchema = new mongoose.Schema({
         type:String,
         required:true,
         minlength:[5,"Email must be atleast 5 characters long"]
-
     },
     password:{
         type:String,
@@ -30,7 +29,7 @@ const userSchema = new mongoose.Schema({
     }
 })
 
-userSchema.methods.generateAuthToken =function (){
+userSchema.methods.generateAuthToken = function (){
     const token= jwt.sign({_id:this._id},process.env.JWT_SECRET);
     return token;
 }
