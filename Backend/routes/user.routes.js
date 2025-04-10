@@ -31,4 +31,5 @@ router.get("/profile",authMiddleware.authUser,userController.getUserProfile);
 
 router.get("/logout",authMiddleware.authUser,userController.logoutUser);
 
-export default router;
+const userRoutes = router;
+export default userRoutes;

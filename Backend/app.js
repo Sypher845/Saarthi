@@ -8,7 +8,8 @@ import cookieParser from "cookie-parser";
 import connectToDb from "./db/db.js";
 connectToDb();
 
-import router from "./routes/user.routes.js";
+import userRoutes from "./routes/user.routes.js";
+import captainRoutes from "./routes/captain.routes.js";
 
 app.use(cors());
 app.use(express.json());
@@ -21,6 +22,7 @@ app.get("/",(req,res)=>{
 });
 
 
-app.use("/users",router);
+app.use("/users",userRoutes);
+app.use("/captains",captainRoutes);
 
 export default app;

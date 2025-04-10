@@ -12,6 +12,12 @@ export default {
 
     console.log(req.body);
     const { fullname, email, password } = req.body;
+
+    const isUserExist = await userModel.findOne({ email });
+    if(isUserExist) {
+    res.status(400).json({ message: "User already exists" }); 
+    }
+
     const hashPassword = await userModel.hashPassword(password);
 
     const user = await userService.createUser({
