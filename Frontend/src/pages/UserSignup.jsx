@@ -1,21 +1,34 @@
-import React, { useState } from "react";
+import React, { useState , useContext} from "react";
 import saarthiLogo from "../assets/saarthi_name.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { UserDataContext } from "../context/userContext";
 
 const UserSignup = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userData, setuserData] = useState({});
+  const navigate = useNavigate();
 
-  const submitHandler = (e) => {
+  const {user ,setUser} = useContext(UserDataContext);
+
+  const submitHandler =async (e) => {
     e.preventDefault();
-    setuserData({
-      fullName: { firstName: firstName, lastName: lastName },
+    const newUser = {
+      fullname: { firstName: firstName, lastName: lastName },
       email: email,
       password: password,
-    });
+    };
+
+    const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/users/register`, newUser);
+
+    if (response.status === 201) {
+      const data= response.data;
+      setUser(data.user);
+      localStorage.setItem("token", data.token); // Store token in local storage
+      navigate("/home");
+    }
 
     setFirstName("");
     setLastName("");
@@ -71,7 +84,7 @@ const UserSignup = () => {
             placeholder="Password"
           />
           <button className="bg-black text-white font-semibold border-2 border-gray-300 p-2 mb-3 w-full rounded-2xl">
-            Sign Up
+            Create Account
           </button>
           <p className="text-center text-gray-500 mb-3">
             Already have an account?{" "}
@@ -83,7 +96,8 @@ const UserSignup = () => {
       </div>
       <div>
         <p className="text-[10px] leading-tight">
-          This site is protected by reCAPTCHA and the <span className="underline">Google Privacy Policy</span> and
+          This site is protected by reCAPTCHA and the{" "}
+          <span className="underline">Google Privacy Policy</span> and
           <span className="underline">Terms of Service</span> apply.
         </p>
       </div>

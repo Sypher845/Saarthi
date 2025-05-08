@@ -28,8 +28,7 @@ router.post(
   ],
   captainController.registerCaptain
 );
-router.post(
-  "/login",[
+router.post("/login",[
     body("email").isEmail().withMessage("Invalid Email"),
     body("password")
       .isLength({ min: 6 })
