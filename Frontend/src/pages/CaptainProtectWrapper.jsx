@@ -35,8 +35,7 @@ const CaptainProtectWrapper = ({ children }) => {
     });
 
   if (isLoading) {
-    return;
-    <div>Loading...</div>;
+    return <div>Loading...</div>;
   }
 
   return <>{children}</>;

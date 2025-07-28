@@ -12,7 +12,7 @@ export default {
     const { fullname, email, password, vehicle } = req.body;
 
     const isCaptainExist = await captainModel.findOne({ email });
-    
+
     if (isCaptainExist) {
       return res.status(400).json({ message: "Captain already exists" });
     }
@@ -32,20 +32,20 @@ export default {
       return res.status(400).json({ message: "Failed to register captain" });
     }
     const token = captain.generateAuthToken();
-    res.status(201).json({token , captain});
+    res.status(201).json({ token, captain });
   },
-  loginCaptain: async (req,res, next) => {
+  loginCaptain: async (req, res, next) => {
     const errors = validationResult(req);
-    if(!errors.isEmpty()) {
+    if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
     const { email, password } = req.body;
     const captain = await captainModel.findOne({ email }).select("+password");
-    if(!captain) {
+    if (!captain) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
     const isMatch = await captain.comparePassword(password);
-    if(!isMatch) {
+    if (!isMatch) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
     const token = captain.generateAuthToken();
@@ -54,10 +54,7 @@ export default {
   },
   getCaptainProfile: async (req, res, next) => {
     const captain = req.captain;
-    if (!captain) {
-      return res.status(400).json({ message: "Captain not found" });
-    }
-    res.status(200).json({ captain });
+    res.status(200).json(captain );
   },
   logoutCaptain: async (req, res, next) => {
     const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
@@ -67,5 +64,5 @@ export default {
     await blacklistModel.create({ token });
     res.clearCookie("token");
     res.status(200).json({ message: "Captain logged out successfully" });
-  }
+  },
 };

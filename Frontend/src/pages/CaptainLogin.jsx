@@ -1,7 +1,6 @@
 import React, { useState,useContext } from "react";
 import driver from "../assets/driver.png";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 import axios from "axios";
 import { CaptainDataContext } from "../context/CaptainContext";
 
@@ -14,13 +13,13 @@ const CaptainLogin = () => {
   
     const submitHandler = async(e) => {
       e.preventDefault();
-      const captain={
+      const captainData={
         email: email,
         password: password,
       };
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/captains/login`,
-        captain
+        captainData
       );
       if (response.status === 200) {
         const data = response.data;

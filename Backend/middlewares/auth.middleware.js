@@ -13,9 +13,7 @@ export default {
         }
 
         const isBlacklisted = await blacklistModel.findOne({token:token});
-        if(isBlacklisted){
 
-        }
 
         try {
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -36,9 +34,7 @@ export default {
         }
 
         const isBlacklisted = await blacklistModel.findOne({token:token});
-        if(isBlacklisted){
-            return res.status(401).json({message:"Unauthorized"});
-        }
+
 
         try {
             const decoded = jwt.verify(token, process.env.JWT_SECRET);

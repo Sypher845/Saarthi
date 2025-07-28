@@ -1,24 +1,34 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const ConfirmRide = (props) => {
+const FinishRide = (props) => {
   return (
-    <>
+    <div>
       <h5
         onClick={() => {
-          props.setConfirmRidePanel(false);
+          props.setFinishRidePanel((prev) => !prev);
         }}
         className="p-3 text-center absolute w-[95%] top-0"
       >
         <i className="bi bi-caret-down-fill text-gray-200"></i>
       </h5>
-      <h3 className="text-2xl font-semibold mb-5 px-5">Confirm your Ride</h3>
-      <div className="flex flex-col justify-between items-center gap-2">
-        <img
-          className="h-20"
-          src="https://www.uber-assets.com/image/upload/f_auto,q_auto:eco,c_fill,h_768,w_1152/v1548646935/assets/64/93c255-87c8-4e2e-9429-cf709bf1b838/original/3.png"
-          alt="Vehicle"
-        />
+      <h3 className="text-2xl font-semibold px-5 text-center">
+        Finish this Ride
+      </h3>
 
+      <div className="flex items-center justify-between p-2 mt-4 border-2 rounded-lg">
+        <div className="flex items-center justify-between gap-3">
+          <img
+            className="h-10 w-10 rounded-full object-cover"
+            src="https://imgs.search.brave.com/BtgojsVt0ZOsrOv6YADCxQZV4bG7CjUnGN14NylA0Ng/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly9odWdn/aW5nZmFjZS5jby9z/ZC1kcmVhbWJvb3Ro/LWxpYnJhcnkvaG9n/LXJpZGVyL3Jlc29s/dmUvbWFpbi9jb25j/ZXB0X2ltYWdlcy8x/LmpwZWc"
+            alt="Captain photu"
+          />
+          <h2 className="text-xl font-medium">Sangu Baby</h2>
+        </div>
+        <h5 className="text-lg font-semibold">2.3 Km away</h5>
+      </div>
+
+      <div className="flex flex-col justify-between items-center gap-2">
         <div className="w-full mt-5">
           <div className="flex items-center justify-baseline p-2 mb-2 border-b-2 border-gray-200">
             <i className="bi bi-geo-alt-fill text-lg w-[20%] pl-3"></i>
@@ -47,18 +57,22 @@ const ConfirmRide = (props) => {
           </div>
         </div>
 
-        <button
-          onClick={() => {
-            props.setConfirmRidePanel(false);
-            props.setVehicleFound(true);
-          }}
-          className="w-full mt-5 bg-green-600 text-white font-semibold p-2 rounded-lg"
-        >
-          Confirm
-        </button>
+        <div className="mt-6 w-full">
+          <Link
+            to="/captain-home"
+            onClick={() => {
+              props.setFinishRidePanel(false);
+            }}
+            className="flex justify-center items-center w-full mt-5 bg-green-600 text-white font-semibold p-3 rounded-lg"
+          >
+            Finish Ride
+          </Link>
+
+          <p className="text-gray-500 mt-3 text-sm text-center">Click on Finish button if you have received the payment.</p>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 
-export default ConfirmRide;
+export default FinishRide;
